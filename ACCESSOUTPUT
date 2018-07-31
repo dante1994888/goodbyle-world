@@ -1,0 +1,130 @@
+Option Explicit
+
+' 定数
+Dim vbext_ct_ClassModule, vbext_ct_Document, vbext_ct_MSForm, vbext_ct_StdModule
+vbext_ct_ClassModule = 2
+vbext_ct_Document = 100
+vbext_ct_MSForm = 3
+vbext_ct_StdModule = 1
+
+' 変数
+Dim inFileName, fs, inFile, outPath, outFolder
+Dim accessObj, vbproject, vbcComp, ext, moduleName
+
+' mdb の txt 形式化
+inFileName = WScript.Arguments(0)
+
+Set fs = CreateObject("Scripting.FileSystemObject")
+Set inFile = fs.GetFile(inFileName)
+outPath = inFile.ParentFolder.Path & "\" & inFile.Name & "_text"
+
+If fs.FolderExists(outPath) Then
+ fs.DeleteFolder(outPath)
+End If
+fs.CreateFolder(outPath)
+Set outFolder = fs.GetFolder(outPath)
+
+Set accessObj = CreateObject("Access.Application")
+accessObj.OpenCurrentDatabase inFileName
+
+Set vbproject = accessObj.VBE.ActiveVBProject
+
+For Each vbcComp In vbproject.VBComponents
+    Select Case vbcComp.Type
+        Case vbext_ct_Document, vbext_ct_StdModule
+            ext = ".bas"
+        Case vbext_ct_ClassModule
+            ext = ".cls"
+        Case vbext_ct_MSForm
+            ext = ".frm"
+        Case Else
+            ext = ""
+   End Select
+
+   moduleName = Replace(vbcComp.Name, "/", "_")
+   vbcComp.Export (outFolder.Path & "\" & moduleName & ext)
+Next
+
+accessObj.Quit()
+msgbox "完了しました"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
