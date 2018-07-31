@@ -1,0 +1,40 @@
+Private Sub Command_Click()
+
+    Dim Dbs         As DAO.Database
+    Dim Qdf         As DAO.QueryDef
+    Dim FileName    As String
+    Dim FNum        As Integer
+    Dim stSQL       As String
+    Dim ret         As Double
+
+    ' データベースセット
+    Set Dbs = CurrentDb
+    'Set Dbs = DAO.OpenDatabase("c:\test.mdb") ' DBの指定がある場合
+
+    ' ファイルを開く
+    FNum = FreeFile
+    FileName = Mid(Dbs.Name, InStrRev(Dbs.Name, "\") + 1)
+    FileName = Left(FileName, InStrRev(FileName, ".") - 1)
+    FileName = "c:\" & FileName & "_Query.txt"
+    Open FileName For Output Access Write As #FNum
+
+    'クエリ分ループ
+    For Each Qdf In Dbs.QueryDefs
+
+        'クエリ名＆SQLステートメント取得
+        stSQL = "QueryName:" & Qdf.Name & vbCrLf & _
+                "SQL:" & Qdf.SQL & vbCrLf & vbCrLf
+
+        'ファイルに出力
+        Print #FNum, stSQL
+
+    Next
+
+    Set Dbs = Nothing
+
+    Close #FNum
+
+    'ファイルを開く(notepad.exe)
+    ret = Shell("notepad.exe " & FileName, vbNormalFocus)
+
+End Sub
