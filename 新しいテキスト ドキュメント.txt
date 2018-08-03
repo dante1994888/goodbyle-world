@@ -1,0 +1,314 @@
+Option Explicit
+
+'####################################################################
+'
+' 機能　　 :必須入力されているかチェックを行う
+' 引数     :sCheckString チェック文字列
+' 戻り値　 :True(チェックＯＫ)、False(チェックＮＧ)
+'
+'####################################################################
+Public Function CheckIsNull(sCheckString As String) As Boolean
+    
+    If IsNull(sCheckString) Or Len(sCheckString) = 0 Then
+        CheckIsNull = False
+    Else
+        CheckIsNull = True
+    End If
+    
+End Function
+
+'####################################################################
+'
+' 機能　　 :指定したサイズを越えていないかチェックを行う
+' 引数     :sCheckString チェック文字列
+'           iSize        最大サイズ
+' 戻り値　 :True(チェックＯＫ)、False(チェックＮＧ)
+'
+'####################################################################
+Public Function CheckMaxLength(sCheckString As String, _
+                               iSize As Integer) As Boolean
+
+    If LenB(StrConv(sCheckString, vbFromUnicode)) > iSize Then
+        CheckMaxLength = False
+    Else
+        CheckMaxLength = True
+    End If
+    
+End Function
+
+'####################################################################
+'
+' 機能　　 :使用禁止文字が使用されていないかチェックを行う
+' 引数     :sCheckString チェック文字列
+' 戻り値　 :True(チェックＯＫ)、False(チェックＮＧ)
+'
+'####################################################################
+Public Function CheckNgChar(sCheckString As String) As Boolean
+
+    Dim iAscCode As Integer
+    Dim iIdx     As Integer
+    
+    For iIdx = 1 To Len(sCheckString)
+        iAscCode = Asc(Mid(sCheckString, iIdx, 1))
+        '第１３区
+'        If intAscCode >= &H8740 And intAscCode <= &H879F Then
+'            CheckNgChar = False
+'            Exit Function
+'        End If
+        'ＳＱＬ禁止文字 "'" "," "%" "_"
+'        If iAscCode = &H2C Or iAscCode = &H27 Or iAscCode = &H25 Or iAscCode = &H5F Then
+        'ＳＱＬ禁止文字 "'" "," "%"
+        If iAscCode = &H2C Or iAscCode = &H27 Or iAscCode = &H25 Then
+            CheckNgChar = False
+            Exit Function
+        End If
+        'その他禁止文字 "[","]"
+        If iAscCode = &H5B Or iAscCode = &H5D Then
+            CheckNgChar = False
+            Exit Function
+        End If
+    Next
+    CheckNgChar = True
+
+End Function
+
+'####################################################################
+'
+' 機能　　 :制御文字が使用されていないかチェックを行う
+' 引数     :sCheckString チェック文字列
+' 戻り値　 :True(チェックＯＫ)、False(チェックＮＧ)
+'
+'####################################################################
+Public Function CheckCtrlChar(sCheckString As String) As Boolean
+
+    Dim iPos As Integer
+
+    '変数の初期化
+    iPos = 0
+    
+    iPos = InStr(sCheckString, vbTab) + InStr(sCheckString, vbCr) + _
+             InStr(sCheckString, vbLf)
+    If iPos > 0 Then
+        CheckCtrlChar = False
+        Exit Function
+    End If
+    
+    CheckCtrlChar = True
+
+End Function
+
+'####################################################################
+'
+' 機能　　 :半角数字文字であるかチェックを行う
+' 引数     :sCheckString チェック文字列
+' 戻り値　 :True(チェックＯＫ)、False(チェックＮＧ)
+'
+'####################################################################
+Public Function CheckNumericChar(sCheckString As String) As Boolean
+
+    If Len(sCheckString) > 0 Then
+        If IsNumeric(sCheckString) Then
+            CheckNumericChar = True
+        Else
+            CheckNumericChar = False
+        End If
+    Else
+        CheckNumericChar = False
+    End If
+
+End Function
+
+'####################################################################
+'
+' 機能　　 :数字の桁数チェックを行う
+' 引数     :sCheckString  文字列
+'           iIntMaxNum    整数部最大桁数
+'           iDecMaxNum    小数部最大桁数
+' 戻り値　 :True   チェックＯＫ
+'           False  チェックＮＧ
+' 備考　　 :空白文字も１桁として扱う
+'
+'####################################################################
+Public Function CheckNumericNumber(sCheckString As String, _
+                iIntMaxNum As Integer, iDecMaxNum As Integer) As Boolean
+
+    Dim iPos     As Integer
+    Dim sInteger As String
+    Dim sDecimal As String
+    
+    '数字チェックを行う
+    If CheckNumericChar(sCheckString) = False Then
+        CheckNumericNumber = False
+        Exit Function
+    End If
+    
+    '整数部と小数部の取り出し
+    iPos = InStr(sCheckString, ".")
+    If iPos > 0 Then
+        sInteger = Left(sCheckString, iPos)
+        sDecimal = Mid(sCheckString, iPos + 1)
+    Else
+        sInteger = sCheckString
+        sDecimal = ""
+    End If
+    
+    '整数部が桁数オーバーしているかチェック
+    If Len(sInteger) > iIntMaxNum Then
+        CheckNumericNumber = False
+        Exit Function
+    End If
+    
+    '小数部が桁数オーバーしているかチェック
+    If Len(sDecimal) > iDecMaxNum Then
+        CheckNumericNumber = False
+        Exit Function
+    End If
+    
+    CheckNumericNumber = True
+    
+End Function
+
+
+'####################################################################
+'
+' 機能　　 :年月日として妥当であるかチェックを行う
+' 引数     :sCheckString チェック文字列
+' 戻り値　 :True(チェックＯＫ)、False(チェックＮＧ)
+'
+'####################################################################
+Public Function CheckDateDayChar(sCheckString As String) As Boolean
+
+    Dim iLength As Integer
+
+    iLength = Len(sCheckString)
+' V1.0.3 2011/03/10 edit start nagura
+    If iLength = 10 Then
+        If IsDate(sCheckString) Then
+' V1.0.3 2011/03/10 edit end nagura
+            CheckDateDayChar = True
+        Else
+            CheckDateDayChar = False
+        End If
+    Else
+      CheckDateDayChar = False
+    End If
+    
+End Function
+
+'####################################################################
+'
+' 機能　　 :年月として妥当であるかチェックを行う
+' 引数     :sCheckString チェック文字列
+' 戻り値　 :True(チェックＯＫ)、False(チェックＮＧ)
+'
+'####################################################################
+Public Function CheckDateMonthChar(sCheckString As String) As Boolean
+
+    Dim iLength As Integer
+
+    iLength = Len(sCheckString)
+
+    If Len(sCheckString) = 6 Then
+        If IsDate(Left(sCheckString, 4) & "/" & Mid(sCheckString, 5, 2)) Then
+            CheckDateMonthChar = True
+        Else
+            CheckDateMonthChar = False
+        End If
+    Else
+      CheckDateMonthChar = False
+    End If
+
+End Function
+
+'####################################################################
+'
+' 機能　　 :全角文字、半角文字のチェックを行う
+' 引数     :sCheckChar チェック文字
+' 戻り値　 :1(半角)、2(全角)、0(それ以外)
+'
+'####################################################################
+Public Function CheckZenHanChar(sCheckChar As String) As Integer
+
+    Select Case LenB(StrConv(sCheckChar, vbFromUnicode))
+        Case 1 '半角
+            CheckZenHanChar = 1
+        Case 2 '全角
+            CheckZenHanChar = 2
+        Case Else 'それ以外
+            CheckZenHanChar = 0
+    End Select
+    
+End Function
+
+'####################################################################
+'
+' 機能　　 :カナ半角文字のチェックを行う
+' 引数     :sCheckChar チェック文字
+' 戻り値　 :True(カナ半角文字)、False(カナ半角文字以外)
+'
+'####################################################################
+Public Function CheckKanaChar(sCheckChar As String) As Boolean
+
+    Dim iAscCode As Integer
+    
+    '変数の初期化
+    CheckKanaChar = False
+    iAscCode = 0
+    
+    If Len(sCheckChar) > 0 Then
+        iAscCode = Asc(sCheckChar)
+        If iAscCode >= 161 And iAscCode <= 223 Then
+            CheckKanaChar = True
+        Else
+            CheckKanaChar = False
+        End If
+    End If
+    
+End Function
+
+'####################################################################
+'
+' 機能　　 :英字半角文字のチェックを行う
+' 引数     :sCheckChar チェック文字
+' 戻り値　 :True(英字半角文字)、False(英字半角文字以外)
+'
+'####################################################################
+Public Function CheckEnglishChar(sCheckChar As String) As Boolean
+
+    Dim iAscCode As Integer
+    
+    '変数の初期化
+    CheckEnglishChar = False
+    iAscCode = 0
+    
+    If Len(sCheckChar) > 0 Then
+        iAscCode = Asc(sCheckChar)
+        If iAscCode >= 65 And iAscCode <= 90 Then
+            CheckEnglishChar = True
+        ElseIf iAscCode >= 97 And iAscCode <= 122 Then
+            CheckEnglishChar = True
+        Else
+            CheckEnglishChar = False
+        End If
+    End If
+
+End Function
+
+' V1.0.3 2011/03/10 add start nagura
+'####################################################################
+'
+' 機能　　 :文字列が数値として扱えるかチェックを行う
+' 引数     :sCheckString チェック文字列
+' 戻り値　 :True(数値)、False(数値以外)
+'
+'####################################################################
+Public Function CheckIsNumericChar(sCheckString As String) As Boolean
+
+    If IsNumeric(sCheckString) Then
+        CheckIsNumericChar = True
+    Else
+        CheckIsNumericChar = False
+    End If
+    
+End Function
+' V1.0.3 2011/03/10 add end nagura
