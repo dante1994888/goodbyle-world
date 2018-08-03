@@ -2,9 +2,9 @@ Option Explicit
 
 '####################################################################
 '
-' ‹@”\@@ :•K{“ü—Í‚³‚ê‚Ä‚¢‚é‚©ƒ`ƒFƒbƒN‚ğs‚¤
-' ˆø”     :sCheckString ƒ`ƒFƒbƒN•¶š—ñ
-' –ß‚è’l@ :True(ƒ`ƒFƒbƒN‚n‚j)AFalse(ƒ`ƒFƒbƒN‚m‚f)
+' æ©Ÿèƒ½ã€€ã€€ :å¿…é ˆå…¥åŠ›ã•ã‚Œã¦ã„ã‚‹ã‹ãƒã‚§ãƒƒã‚¯ã‚’è¡Œã†
+' å¼•æ•°     :sCheckString ãƒã‚§ãƒƒã‚¯æ–‡å­—åˆ—
+' æˆ»ã‚Šå€¤ã€€ :True(ãƒã‚§ãƒƒã‚¯ï¼¯ï¼«)ã€False(ãƒã‚§ãƒƒã‚¯ï¼®ï¼§)
 '
 '####################################################################
 Public Function CheckIsNull(sCheckString As String) As Boolean
@@ -19,10 +19,10 @@ End Function
 
 '####################################################################
 '
-' ‹@”\@@ :w’è‚µ‚½ƒTƒCƒY‚ğ‰z‚¦‚Ä‚¢‚È‚¢‚©ƒ`ƒFƒbƒN‚ğs‚¤
-' ˆø”     :sCheckString ƒ`ƒFƒbƒN•¶š—ñ
-'           iSize        Å‘åƒTƒCƒY
-' –ß‚è’l@ :True(ƒ`ƒFƒbƒN‚n‚j)AFalse(ƒ`ƒFƒbƒN‚m‚f)
+' æ©Ÿèƒ½ã€€ã€€ :æŒ‡å®šã—ãŸã‚µã‚¤ã‚ºã‚’è¶Šãˆã¦ã„ãªã„ã‹ãƒã‚§ãƒƒã‚¯ã‚’è¡Œã†
+' å¼•æ•°     :sCheckString ãƒã‚§ãƒƒã‚¯æ–‡å­—åˆ—
+'           iSize        æœ€å¤§ã‚µã‚¤ã‚º
+' æˆ»ã‚Šå€¤ã€€ :True(ãƒã‚§ãƒƒã‚¯ï¼¯ï¼«)ã€False(ãƒã‚§ãƒƒã‚¯ï¼®ï¼§)
 '
 '####################################################################
 Public Function CheckMaxLength(sCheckString As String, _
@@ -38,9 +38,9 @@ End Function
 
 '####################################################################
 '
-' ‹@”\@@ :g—p‹Ö~•¶š‚ªg—p‚³‚ê‚Ä‚¢‚È‚¢‚©ƒ`ƒFƒbƒN‚ğs‚¤
-' ˆø”     :sCheckString ƒ`ƒFƒbƒN•¶š—ñ
-' –ß‚è’l@ :True(ƒ`ƒFƒbƒN‚n‚j)AFalse(ƒ`ƒFƒbƒN‚m‚f)
+' æ©Ÿèƒ½ã€€ã€€ :ä½¿ç”¨ç¦æ­¢æ–‡å­—ãŒä½¿ç”¨ã•ã‚Œã¦ã„ãªã„ã‹ãƒã‚§ãƒƒã‚¯ã‚’è¡Œã†
+' å¼•æ•°     :sCheckString ãƒã‚§ãƒƒã‚¯æ–‡å­—åˆ—
+' æˆ»ã‚Šå€¤ã€€ :True(ãƒã‚§ãƒƒã‚¯ï¼¯ï¼«)ã€False(ãƒã‚§ãƒƒã‚¯ï¼®ï¼§)
 '
 '####################################################################
 Public Function CheckNgChar(sCheckString As String) As Boolean
@@ -50,19 +50,19 @@ Public Function CheckNgChar(sCheckString As String) As Boolean
     
     For iIdx = 1 To Len(sCheckString)
         iAscCode = Asc(Mid(sCheckString, iIdx, 1))
-        '‘æ‚P‚R‹æ
+        'ç¬¬ï¼‘ï¼“åŒº
 '        If intAscCode >= &H8740 And intAscCode <= &H879F Then
 '            CheckNgChar = False
 '            Exit Function
 '        End If
-        '‚r‚p‚k‹Ö~•¶š "'" "," "%" "_"
+        'ï¼³ï¼±ï¼¬ç¦æ­¢æ–‡å­— "'" "," "%" "_"
 '        If iAscCode = &H2C Or iAscCode = &H27 Or iAscCode = &H25 Or iAscCode = &H5F Then
-        '‚r‚p‚k‹Ö~•¶š "'" "," "%"
+        'ï¼³ï¼±ï¼¬ç¦æ­¢æ–‡å­— "'" "," "%"
         If iAscCode = &H2C Or iAscCode = &H27 Or iAscCode = &H25 Then
             CheckNgChar = False
             Exit Function
         End If
-        '‚»‚Ì‘¼‹Ö~•¶š "[","]"
+        'ãã®ä»–ç¦æ­¢æ–‡å­— "[","]"
         If iAscCode = &H5B Or iAscCode = &H5D Then
             CheckNgChar = False
             Exit Function
@@ -74,16 +74,16 @@ End Function
 
 '####################################################################
 '
-' ‹@”\@@ :§Œä•¶š‚ªg—p‚³‚ê‚Ä‚¢‚È‚¢‚©ƒ`ƒFƒbƒN‚ğs‚¤
-' ˆø”     :sCheckString ƒ`ƒFƒbƒN•¶š—ñ
-' –ß‚è’l@ :True(ƒ`ƒFƒbƒN‚n‚j)AFalse(ƒ`ƒFƒbƒN‚m‚f)
+' æ©Ÿèƒ½ã€€ã€€ :åˆ¶å¾¡æ–‡å­—ãŒä½¿ç”¨ã•ã‚Œã¦ã„ãªã„ã‹ãƒã‚§ãƒƒã‚¯ã‚’è¡Œã†
+' å¼•æ•°     :sCheckString ãƒã‚§ãƒƒã‚¯æ–‡å­—åˆ—
+' æˆ»ã‚Šå€¤ã€€ :True(ãƒã‚§ãƒƒã‚¯ï¼¯ï¼«)ã€False(ãƒã‚§ãƒƒã‚¯ï¼®ï¼§)
 '
 '####################################################################
 Public Function CheckCtrlChar(sCheckString As String) As Boolean
 
     Dim iPos As Integer
 
-    '•Ï”‚Ì‰Šú‰»
+    'å¤‰æ•°ã®åˆæœŸåŒ–
     iPos = 0
     
     iPos = InStr(sCheckString, vbTab) + InStr(sCheckString, vbCr) + _
@@ -99,9 +99,9 @@ End Function
 
 '####################################################################
 '
-' ‹@”\@@ :”¼Šp”š•¶š‚Å‚ ‚é‚©ƒ`ƒFƒbƒN‚ğs‚¤
-' ˆø”     :sCheckString ƒ`ƒFƒbƒN•¶š—ñ
-' –ß‚è’l@ :True(ƒ`ƒFƒbƒN‚n‚j)AFalse(ƒ`ƒFƒbƒN‚m‚f)
+' æ©Ÿèƒ½ã€€ã€€ :åŠè§’æ•°å­—æ–‡å­—ã§ã‚ã‚‹ã‹ãƒã‚§ãƒƒã‚¯ã‚’è¡Œã†
+' å¼•æ•°     :sCheckString ãƒã‚§ãƒƒã‚¯æ–‡å­—åˆ—
+' æˆ»ã‚Šå€¤ã€€ :True(ãƒã‚§ãƒƒã‚¯ï¼¯ï¼«)ã€False(ãƒã‚§ãƒƒã‚¯ï¼®ï¼§)
 '
 '####################################################################
 Public Function CheckNumericChar(sCheckString As String) As Boolean
@@ -120,13 +120,13 @@ End Function
 
 '####################################################################
 '
-' ‹@”\@@ :”š‚ÌŒ…”ƒ`ƒFƒbƒN‚ğs‚¤
-' ˆø”     :sCheckString  •¶š—ñ
-'           iIntMaxNum    ®”•”Å‘åŒ…”
-'           iDecMaxNum    ¬”•”Å‘åŒ…”
-' –ß‚è’l@ :True   ƒ`ƒFƒbƒN‚n‚j
-'           False  ƒ`ƒFƒbƒN‚m‚f
-' ”õl@@ :‹ó”’•¶š‚à‚PŒ…‚Æ‚µ‚Äˆµ‚¤
+' æ©Ÿèƒ½ã€€ã€€ :æ•°å­—ã®æ¡æ•°ãƒã‚§ãƒƒã‚¯ã‚’è¡Œã†
+' å¼•æ•°     :sCheckString  æ–‡å­—åˆ—
+'           iIntMaxNum    æ•´æ•°éƒ¨æœ€å¤§æ¡æ•°
+'           iDecMaxNum    å°æ•°éƒ¨æœ€å¤§æ¡æ•°
+' æˆ»ã‚Šå€¤ã€€ :True   ãƒã‚§ãƒƒã‚¯ï¼¯ï¼«
+'           False  ãƒã‚§ãƒƒã‚¯ï¼®ï¼§
+' å‚™è€ƒã€€ã€€ :ç©ºç™½æ–‡å­—ã‚‚ï¼‘æ¡ã¨ã—ã¦æ‰±ã†
 '
 '####################################################################
 Public Function CheckNumericNumber(sCheckString As String, _
@@ -136,13 +136,13 @@ Public Function CheckNumericNumber(sCheckString As String, _
     Dim sInteger As String
     Dim sDecimal As String
     
-    '”šƒ`ƒFƒbƒN‚ğs‚¤
+    'æ•°å­—ãƒã‚§ãƒƒã‚¯ã‚’è¡Œã†
     If CheckNumericChar(sCheckString) = False Then
         CheckNumericNumber = False
         Exit Function
     End If
     
-    '®”•”‚Æ¬”•”‚Ìæ‚èo‚µ
+    'æ•´æ•°éƒ¨ã¨å°æ•°éƒ¨ã®å–ã‚Šå‡ºã—
     iPos = InStr(sCheckString, ".")
     If iPos > 0 Then
         sInteger = Left(sCheckString, iPos)
@@ -152,13 +152,13 @@ Public Function CheckNumericNumber(sCheckString As String, _
         sDecimal = ""
     End If
     
-    '®”•”‚ªŒ…”ƒI[ƒo[‚µ‚Ä‚¢‚é‚©ƒ`ƒFƒbƒN
+    'æ•´æ•°éƒ¨ãŒæ¡æ•°ã‚ªãƒ¼ãƒãƒ¼ã—ã¦ã„ã‚‹ã‹ãƒã‚§ãƒƒã‚¯
     If Len(sInteger) > iIntMaxNum Then
         CheckNumericNumber = False
         Exit Function
     End If
     
-    '¬”•”‚ªŒ…”ƒI[ƒo[‚µ‚Ä‚¢‚é‚©ƒ`ƒFƒbƒN
+    'å°æ•°éƒ¨ãŒæ¡æ•°ã‚ªãƒ¼ãƒãƒ¼ã—ã¦ã„ã‚‹ã‹ãƒã‚§ãƒƒã‚¯
     If Len(sDecimal) > iDecMaxNum Then
         CheckNumericNumber = False
         Exit Function
@@ -171,9 +171,9 @@ End Function
 
 '####################################################################
 '
-' ‹@”\@@ :”NŒ“ú‚Æ‚µ‚Ä‘Ã“–‚Å‚ ‚é‚©ƒ`ƒFƒbƒN‚ğs‚¤
-' ˆø”     :sCheckString ƒ`ƒFƒbƒN•¶š—ñ
-' –ß‚è’l@ :True(ƒ`ƒFƒbƒN‚n‚j)AFalse(ƒ`ƒFƒbƒN‚m‚f)
+' æ©Ÿèƒ½ã€€ã€€ :å¹´æœˆæ—¥ã¨ã—ã¦å¦¥å½“ã§ã‚ã‚‹ã‹ãƒã‚§ãƒƒã‚¯ã‚’è¡Œã†
+' å¼•æ•°     :sCheckString ãƒã‚§ãƒƒã‚¯æ–‡å­—åˆ—
+' æˆ»ã‚Šå€¤ã€€ :True(ãƒã‚§ãƒƒã‚¯ï¼¯ï¼«)ã€False(ãƒã‚§ãƒƒã‚¯ï¼®ï¼§)
 '
 '####################################################################
 Public Function CheckDateDayChar(sCheckString As String) As Boolean
@@ -197,9 +197,9 @@ End Function
 
 '####################################################################
 '
-' ‹@”\@@ :”NŒ‚Æ‚µ‚Ä‘Ã“–‚Å‚ ‚é‚©ƒ`ƒFƒbƒN‚ğs‚¤
-' ˆø”     :sCheckString ƒ`ƒFƒbƒN•¶š—ñ
-' –ß‚è’l@ :True(ƒ`ƒFƒbƒN‚n‚j)AFalse(ƒ`ƒFƒbƒN‚m‚f)
+' æ©Ÿèƒ½ã€€ã€€ :å¹´æœˆã¨ã—ã¦å¦¥å½“ã§ã‚ã‚‹ã‹ãƒã‚§ãƒƒã‚¯ã‚’è¡Œã†
+' å¼•æ•°     :sCheckString ãƒã‚§ãƒƒã‚¯æ–‡å­—åˆ—
+' æˆ»ã‚Šå€¤ã€€ :True(ãƒã‚§ãƒƒã‚¯ï¼¯ï¼«)ã€False(ãƒã‚§ãƒƒã‚¯ï¼®ï¼§)
 '
 '####################################################################
 Public Function CheckDateMonthChar(sCheckString As String) As Boolean
@@ -222,19 +222,19 @@ End Function
 
 '####################################################################
 '
-' ‹@”\@@ :‘SŠp•¶šA”¼Šp•¶š‚Ìƒ`ƒFƒbƒN‚ğs‚¤
-' ˆø”     :sCheckChar ƒ`ƒFƒbƒN•¶š
-' –ß‚è’l@ :1(”¼Šp)A2(‘SŠp)A0(‚»‚êˆÈŠO)
+' æ©Ÿèƒ½ã€€ã€€ :å…¨è§’æ–‡å­—ã€åŠè§’æ–‡å­—ã®ãƒã‚§ãƒƒã‚¯ã‚’è¡Œã†
+' å¼•æ•°     :sCheckChar ãƒã‚§ãƒƒã‚¯æ–‡å­—
+' æˆ»ã‚Šå€¤ã€€ :1(åŠè§’)ã€2(å…¨è§’)ã€0(ãã‚Œä»¥å¤–)
 '
 '####################################################################
 Public Function CheckZenHanChar(sCheckChar As String) As Integer
 
     Select Case LenB(StrConv(sCheckChar, vbFromUnicode))
-        Case 1 '”¼Šp
+        Case 1 'åŠè§’
             CheckZenHanChar = 1
-        Case 2 '‘SŠp
+        Case 2 'å…¨è§’
             CheckZenHanChar = 2
-        Case Else '‚»‚êˆÈŠO
+        Case Else 'ãã‚Œä»¥å¤–
             CheckZenHanChar = 0
     End Select
     
@@ -242,16 +242,16 @@ End Function
 
 '####################################################################
 '
-' ‹@”\@@ :ƒJƒi”¼Šp•¶š‚Ìƒ`ƒFƒbƒN‚ğs‚¤
-' ˆø”     :sCheckChar ƒ`ƒFƒbƒN•¶š
-' –ß‚è’l@ :True(ƒJƒi”¼Šp•¶š)AFalse(ƒJƒi”¼Šp•¶šˆÈŠO)
+' æ©Ÿèƒ½ã€€ã€€ :ã‚«ãƒŠåŠè§’æ–‡å­—ã®ãƒã‚§ãƒƒã‚¯ã‚’è¡Œã†
+' å¼•æ•°     :sCheckChar ãƒã‚§ãƒƒã‚¯æ–‡å­—
+' æˆ»ã‚Šå€¤ã€€ :True(ã‚«ãƒŠåŠè§’æ–‡å­—)ã€False(ã‚«ãƒŠåŠè§’æ–‡å­—ä»¥å¤–)
 '
 '####################################################################
 Public Function CheckKanaChar(sCheckChar As String) As Boolean
 
     Dim iAscCode As Integer
     
-    '•Ï”‚Ì‰Šú‰»
+    'å¤‰æ•°ã®åˆæœŸåŒ–
     CheckKanaChar = False
     iAscCode = 0
     
@@ -268,16 +268,16 @@ End Function
 
 '####################################################################
 '
-' ‹@”\@@ :‰pš”¼Šp•¶š‚Ìƒ`ƒFƒbƒN‚ğs‚¤
-' ˆø”     :sCheckChar ƒ`ƒFƒbƒN•¶š
-' –ß‚è’l@ :True(‰pš”¼Šp•¶š)AFalse(‰pš”¼Šp•¶šˆÈŠO)
+' æ©Ÿèƒ½ã€€ã€€ :è‹±å­—åŠè§’æ–‡å­—ã®ãƒã‚§ãƒƒã‚¯ã‚’è¡Œã†
+' å¼•æ•°     :sCheckChar ãƒã‚§ãƒƒã‚¯æ–‡å­—
+' æˆ»ã‚Šå€¤ã€€ :True(è‹±å­—åŠè§’æ–‡å­—)ã€False(è‹±å­—åŠè§’æ–‡å­—ä»¥å¤–)
 '
 '####################################################################
 Public Function CheckEnglishChar(sCheckChar As String) As Boolean
 
     Dim iAscCode As Integer
     
-    '•Ï”‚Ì‰Šú‰»
+    'å¤‰æ•°ã®åˆæœŸåŒ–
     CheckEnglishChar = False
     iAscCode = 0
     
@@ -297,9 +297,9 @@ End Function
 ' V1.0.3 2011/03/10 add start nagura
 '####################################################################
 '
-' ‹@”\@@ :•¶š—ñ‚ª”’l‚Æ‚µ‚Äˆµ‚¦‚é‚©ƒ`ƒFƒbƒN‚ğs‚¤
-' ˆø”     :sCheckString ƒ`ƒFƒbƒN•¶š—ñ
-' –ß‚è’l@ :True(”’l)AFalse(”’lˆÈŠO)
+' æ©Ÿèƒ½ã€€ã€€ :æ–‡å­—åˆ—ãŒæ•°å€¤ã¨ã—ã¦æ‰±ãˆã‚‹ã‹ãƒã‚§ãƒƒã‚¯ã‚’è¡Œã†
+' å¼•æ•°     :sCheckString ãƒã‚§ãƒƒã‚¯æ–‡å­—åˆ—
+' æˆ»ã‚Šå€¤ã€€ :True(æ•°å€¤)ã€False(æ•°å€¤ä»¥å¤–)
 '
 '####################################################################
 Public Function CheckIsNumericChar(sCheckString As String) As Boolean
